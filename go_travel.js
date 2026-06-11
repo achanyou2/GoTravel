@@ -6,13 +6,25 @@ function search(){
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '';
 
-    const searchText = searchInput.value.toLowerCase();
-    console.log(searchText);
-
     fetch('go_travel_api.json')
         .then(response => response.json())
         .then(data => {
             console.log(data);
+            const keyword = matchKeyword(searchInput.value.toLowerCase());
+            if (keyword.length > 0)
+            {
+                console.log(typeof(data));
+                const destinations = getRecommendations(keyword, data);
+                debugger;
+                destinations.forEach((dest) => {
+                    var content = `<img src="${dest.imageUrl}" alt="${dest.name}">`;
+                    content += `<p><strong>${dest.name}</strong></p>`;
+                    content += `<p>${dest.description}</p>`;
+                    resultDiv.innerHTML += `<div class="card">${content}</div>`;
+                });
+            } else {
+                resultDiv.innerHTML = "Keyword not found.";
+            }
         })
         .catch(error => {
             console.error('Error:', error);
@@ -20,8 +32,20 @@ function search(){
         });
 }
 
+function getRecommendations(keyword, data)
+{
+    if (keyword === 'beaches'){
+        return data.beaches;
+    } else if (keyword === 'countries') {
+        return data.countries;
+    } else if (keyword === 'temples') {
+        return data.temples;
+    }
+
+}
+
 function reset(){
-    searchInput.innerText = '';
+    searchInput.value = '';
 }
 
 function matchKeyword(word){

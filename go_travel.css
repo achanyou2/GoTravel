@@ -1,5 +1,15 @@
 /* Basic CSS for the navigation bar */
 
+.grid-container {
+  display: flex;
+  gap: 16px; 
+}
+
+.card {
+    background-color: white;
+    justify-self: center;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -82,8 +92,6 @@ nav {
   width: 500px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
 }
   #result img{
     width: 200px;
