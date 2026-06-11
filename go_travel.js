@@ -37,7 +37,8 @@ function getRecommendations(keyword, data)
     if (keyword === 'beaches'){
         return data.beaches;
     } else if (keyword === 'countries') {
-        return data.countries;
+        var places = data.countries[0].cities.concat(data.countries[1].cities.concat(data.countries[2].cities));
+        return places;
     } else if (keyword === 'temples') {
         return data.temples;
     }
